@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-06",
+  "repository": "Elpsy-Deng/fadaiting-camp",
+  "baselineCommit": "038dbb2422a1e823851e8925787c99cde43fe796",
+  "scope": "展示階段收尾、現況待辦收斂與操作文件；沒有功能或 schema 修改",
+  "tests": {
+    "backend": {
+      "tests": 189,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "package": "BUILD SUCCESS",
+      "postgresMajor": 17
+    },
+    "http": {
+      "passed": 21,
+      "checks": [
+        "公開營區可讀",
+        "即時報價與可售核對 1",
+        "送單保留庫存、付款期限與通知入列",
+        "公開查單成功且不洩漏內部備註",
+        "錯誤電話不能查單",
+        "付款請求使用 mock",
+        "mock 重複確認只記帳一次",
+        "STAFF 不能修改訂單一般狀態",
+        "取消釋放庫存",
+        "舊版本操作被拒絕",
+        "退款模擬不扣已收款、不當完成",
+        "STAFF 無金流稽核權限",
+        "通知免費模擬不寄信",
+        "ADMIN 通知觀測與保留試算可讀",
+        "備份未設定正確顯示未知",
+        "STAFF／匿名不能讀 ADMIN 觀測",
+        "即時報價與可售核對 2",
+        "STAFF 可保存交接備註",
+        "STAFF 入住成功",
+        "舊入住版本拒絕重複登記",
+        "STAFF 退房完成訂單"
+      ]
+    },
+    "productionBrowser": {
+      "passed": 14,
+      "checks": [
+        "正式前台頁可載入 /",
+        "正式前台頁可載入 /zones",
+        "正式前台頁可載入 /booking",
+        "前台可查到本輪合成預約",
+        "ADMIN 正式登入成功",
+        "ADMIN 可看合成付款退款訂單明細",
+        "正式通知頁具佇列與保留試算",
+        "未設定備份來源不假造成功",
+        "ADMIN 員工管理頁可載入",
+        "STAFF 可讀住宿交接明細",
+        "STAFF 拒絕管理入口 /admin/staff",
+        "STAFF 拒絕管理入口 /admin/booking/notifications",
+        "STAFF 拒絕管理入口 /admin/backup-observation",
+        "展示正式產物無未捕捉 JS 錯誤"
+      ]
+    },
+    "frontend": {
+      "typecheck": true,
+      "productionBuild": true,
+      "optionalExternalAssetsBlocked": true,
+      "existingWarnings": [
+        "simplebar non-module",
+        "mixed imports",
+        "large chunks"
+      ]
+    },
+    "historicalOnly": [
+      "備份 Python 27 項與隔離還原已有前輪證據，本輪未重跑",
+      "PG18／MinIO／外部 HTTPS／真正手機本輪未驗收"
+    ]
+  },
+  "cleanup": {
+    "ownedBookingsRemoved": 2,
+    "ownedCampUnitRemoved": 1,
+    "ownedRefundRemovedBeforeCascadeCleanup": true,
+    "relatedFixturesRemovedByCascade": true,
+    "existingBookingAndNotificationSnapshotUnchangedByCleanup": true,
+    "ownedBackendAndPreviewStopped": true,
+    "existingDemoInstancesUntouched": true
+  },
+  "artifactSha256": {
+    "backendJar": "b28b6f14c035b1d6e744eddda4bac79ce38a034ec0282eaf371ab64b7c2d68ee",
+    "frontendIndex": "4c209823dc8974cec837d8d80ad17ff96fabb999acc4c0fa3ca927fa09ee0153"
+  },
+  "safety": {
+    "noRealPaymentsOrEmailOrLine": true,
+    "noAccountChanges": true,
+    "noImagesOrModelsDownloaded": true,
+    "onlyCampRepositoryModified": true,
+    "noGlobalDockerOrProxyChanges": true
+  },
+  "deferredCategories": [
+    "真實金流與旅客授權",
+    "通知送達與 LINE",
+    "本機部署與完整復原",
+    "營運報表",
+    "正式內容與 UX",
+    "長期營運與維護"
+  ],
+  "nextProject": "ELPSY Shop；正式來源待確認，不以日日選物替代、不改候選倉庫"
+}

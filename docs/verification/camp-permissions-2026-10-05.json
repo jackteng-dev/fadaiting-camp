@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-05",
+  "baseCommit": "46cc8be2feea7e331dbaa7554a14ec531e0ebf7a",
+  "environment": "Codex Cloud；隔離合成資料，Java 25／PostgreSQL 17／Redis 7／Chromium",
+  "backend": {
+    "passed": 21,
+    "skipped": 0,
+    "note": "mvn package 全部通過；包含既有測試與新增授權測試"
+  },
+  "http": {
+    "passed": 38,
+    "checks": [
+      "未登入查詢預約回401",
+      "既有admin帳號相容ADMIN",
+      "STAFF可登入",
+      "停用帳號無法登入",
+      "舊user角色不自動升級",
+      "auth/me回傳STAFF與有限選單",
+      "STAFF拒絕 PATCH /booking/detail",
+      "STAFF拒絕 POST /payment/manual",
+      "STAFF拒絕 POST /payment/list",
+      "STAFF拒絕 PUT /payment/methods",
+      "STAFF拒絕 POST /notification/send-queued",
+      "STAFF拒絕 PUT /camp/site",
+      "STAFF拒絕 POST /role/assignPermission",
+      "STAFF拒絕 POST /role/assignUser",
+      "STAFF不可查看他人帳號",
+      "STAFF不可修改他人帳號",
+      "STAFF可查看自己",
+      "ADMIN可查看支付設定",
+      "公開預約可建立",
+      "ADMIN可確認預約",
+      "STAFF不可更改為 cancelled",
+      "STAFF不可更改為 pending",
+      "STAFF不可更改為 confirmed",
+      "STAFF可獨立儲存交接備註",
+      "STAFF可完成已確認訂單",
+      "重複完成不覆蓋狀態",
+      "完成狀態及備註保存於真實DB",
+      "提升後同一登入可讀ADMIN API",
+      "撤銷ADMIN後舊JWT立即403",
+      "停用後舊JWT立即403",
+      "停用後無法刷新",
+      "登出成功",
+      "登出後Session撤銷",
+      "自助更新不能把角色升成ADMIN",
+      "ADMIN可補登人工付款",
+      "ADMIN可核對付款原始資料",
+      "STAFF付款資料已去除callback與付款連結",
+      "偽造舊Redis細權限仍不能繞過STAFF"
+    ]
+  },
+  "browser": {
+    "passed": 12,
+    "checks": [
+      "STAFF側欄無價格管理",
+      "STAFF無付款紀錄按鈕",
+      "STAFF已收與改價欄位不可編輯",
+      "STAFF無人工補登付款",
+      "STAFF可儲存交接備註",
+      "STAFF直接輸入設定網址被阻擋",
+      "瀏覽器直接呼叫付款API回403",
+      "登出回登入頁",
+      "ADMIN側欄有價格管理",
+      "ADMIN可看到改價與人工收款",
+      "手機寬度可載入明細",
+      "無未處理頁面錯誤"
+    ]
+  },
+  "frontend": {
+    "typecheck": "通過",
+    "productionBuild": "通過",
+    "localLoginHelpersExcluded": true
+  },
+  "limits": [
+    "未修改既有營運資料庫",
+    "沒有實測商家金流、LINE 身分或通知發送",
+    "沒有執行吞吐量壓測",
+    "尚無固定角色的帳號管理頁與真正入住狀態"
+  ]
+}

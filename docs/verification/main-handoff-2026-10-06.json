@@ -1,0 +1,174 @@
+{
+  "date": "2026-10-06",
+  "repository": "Elpsy-Deng/fadaiting-camp",
+  "branch": "main",
+  "remoteMainAtStart": "46cc8be2feea7e331dbaa7554a14ec531e0ebf7a",
+  "integratedFeatureCommit": "c055d49c2b671ae345e556979e9c2a2686ce32f4",
+  "scope": "工作流程與交接文件；未修改商業程式",
+  "backend": {
+    "command": "Maven package（指定 20 組測試，LINE 與通知整合測試開關啟用）",
+    "result": "BUILD SUCCESS",
+    "tests": 161,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": [
+      {
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.BookingHoldServiceTest"
+      },
+      {
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.StaffAccountServiceTest"
+      },
+      {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.BookingStaffAccessTest"
+      },
+      {
+        "tests": 18,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.BookingStayServiceTest"
+      },
+      {
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.BookingStateTransitionTest"
+      },
+      {
+        "tests": 17,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.NotificationQueueIntegrationTest"
+      },
+      {
+        "tests": 19,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.PaymentFinancialServiceTest"
+      },
+      {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.service.impl.LineIdTokenHttpClientTest"
+      },
+      {
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.PaymentLifecycleTest"
+      },
+      {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.UuidTypeHandlerTest"
+      },
+      {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.BookingInventoryServiceTest"
+      },
+      {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.JwtLifetimeTest"
+      },
+      {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.SessionCookieServiceTest"
+      },
+      {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.PaymentFinancialVisibilityTest"
+      },
+      {
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.LineIdentityVerifierTest"
+      },
+      {
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.LineIdentityIntegrationTest"
+      },
+      {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.CampAccessServiceTest"
+      },
+      {
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.NotificationDeliveryGatewayTest"
+      },
+      {
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.utils.JwtAuthenticationFilterTest"
+      },
+      {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "suite": "com.fadaiting.camp.utils.CampRolePolicyTest"
+      }
+    ]
+  },
+  "frontend": {
+    "command": "npm run build（vue-tsc -b && vite build）",
+    "result": "success",
+    "knownWarnings": [
+      "simplebar script 缺少 type=module",
+      "混合靜態／動態 import",
+      "部分 production chunk 超過 500 kB"
+    ]
+  },
+  "logSha256": {
+    "backend": "e94693f83aab9544feb2d97b2a37b3a5a98b29c1759b9446b11711294950f8c2",
+    "frontend": "fcc1e28b0cb06295447be26ff899c1bb68c3c39fa6408e6dd111db3fb67404c2"
+  },
+  "httpAndBrowserTestsThisStage": false,
+  "externalMessagesOrPayments": false,
+  "privateLogsCommitted": false
+}

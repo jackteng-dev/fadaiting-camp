@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-06",
+  "repository": "Elpsy-Deng/fadaiting-camp",
+  "baselineCommit": "9b2aa1b2cc307b51f761efb32bf43988fc397f2b",
+  "scope": "私有 CLI 執行紀錄及 ADMIN 唯讀備份觀測",
+  "tests": {
+    "pythonJournal": {
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pythonBackup": {
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0,
+      "postgresMajor": 17
+    },
+    "backend": {
+      "passed": 178,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "package": "BUILD SUCCESS"
+    },
+    "http": {
+      "passed": 15,
+      "checks": [
+        "匿名備份觀測 401",
+        "STAFF 備份觀測 403",
+        "ADMIN 成功讀取真實 CLI 備份紀錄",
+        "備份成功不能當作還原成功",
+        "尚未驗證有 warning",
+        "重複 GET 不寫紀錄",
+        "API 不洩漏私有路徑或資料內容",
+        "CLI 既有備份拒絕覆寫且記錄失敗",
+        "失敗保留最後成功備份並告警",
+        "真實 CLI 隔離還原通過並保存紀錄",
+        "來源及完整雜湊核對最新備份已驗證",
+        "還原成功仍保留最近備份失敗提示",
+        "每次操作保留獨立歷史",
+        "ADMIN 無 HTTP 備份寫入入口",
+        "ADMIN 無 HTTP 還原入口"
+      ]
+    },
+    "productionBrowser": {
+      "passed": 15,
+      "checks": [
+        "ADMIN 側欄有備份觀測入口",
+        "三項指標分開呈現備份與還原及相同備份驗證",
+        "真實 API 成功雜湊呈現在頁面",
+        "真實失敗提示不抹除最後成功歷史",
+        "明示歷史紀錄不保證完整服務復原",
+        "未設定不顯示假成功卡片",
+        "健康提示限定紀錄檢查",
+        "503 清除舊成功卡片與健康提示",
+        "其他還原成功不替代最新備份驗證",
+        "恢復 API 可重載真實狀態",
+        "390px 手機觀測區無橫向溢出",
+        "STAFF 沒有觀測側欄入口",
+        "STAFF 直接網址仍拒絕",
+        "頁面觀測請求只有 GET",
+        "正式產物無未捕捉 JavaScript 錯誤"
+      ]
+    },
+    "composeAndReadonlyMount": {
+      "passed": 5,
+      "checks": [
+        "dev-default-unconfigured",
+        "dev-readonly-overlay",
+        "prod-default-unconfigured",
+        "prod-readonly-overlay",
+        "actual-container-read-succeeds-write-rejected"
+      ]
+    },
+    "frontend": {
+      "typecheck": true,
+      "productionBuild": true,
+      "preview": "built dist on localhost; optional non-local fonts blocked",
+      "existingWarnings": [
+        "simplebar non-module",
+        "mixed static/dynamic imports",
+        "large chunks"
+      ]
+    }
+  },
+  "realCli": {
+    "backupRecorded": true,
+    "restoreVerified": true,
+    "archiveSha256": "f060d32fa0097b6b85ee08d799eb2d0752c40d5c427d2e6f9eaf971d28671597",
+    "receiptCount": 3,
+    "receiptStatuses": [
+      "failed",
+      "success",
+      "success"
+    ],
+    "receiptAggregateSha256": "0fe7b4cada3c81b01cfef53e98507d19d914c95cc6a3059ba045ba622e816d84",
+    "sameBackupVerified": true,
+    "latestBackupAttempt": "failed",
+    "lastSuccessfulBackupPreserved": true,
+    "historicalFailureRemainsVisible": true
+  },
+  "artifactSha256": {
+    "backendJar": "cf17f0c13bb8f40c3dd4b655da0de49dcc23ed069bda8a861b333d2a2094f636",
+    "frontendIndex": "954d2d9e53ec3b66b20cc1ceaa7563715da48f3ca24dc81f10c37722d5a56eb6"
+  },
+  "safety": {
+    "noHttpOperationEndpoints": true,
+    "noDockerSocketMounted": true,
+    "actualReadonlyBindWriteRejected": true,
+    "noAccountChanges": true,
+    "noSmtpOrLineDelivery": true,
+    "onlyCampRepositoryModified": true,
+    "ownedTestInstancesStopped": true,
+    "existingDemonstrationInstancesUntouched": true
+  },
+  "deferred": [
+    "本機 PostgreSQL 18／MinIO／完整恢復服務",
+    "持久主機權限與部署驗收",
+    "排程／加密／離機副本／保留封存／簽章／PITR",
+    "通知歷史保留政策與安全 dry-run",
+    "外部 HTTPS／真正手機驗收"
+  ]
+}

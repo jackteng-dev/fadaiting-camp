@@ -1,0 +1,113 @@
+{
+  "date": "2026-10-06",
+  "repository": "Elpsy-Deng/fadaiting-camp",
+  "baselineCommit": "c87edaf44b85cce1cf7c2507a0f013d4a2e756c6",
+  "scope": "通知歷史保留草案與 ADMIN 唯讀 dry-run",
+  "policyVersion": "conservative-preview-v1",
+  "defaultPreviewDays": 180,
+  "deletionEnabled": false,
+  "tests": {
+    "backend": {
+      "passed": 189,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "newRetentionPostgresCases": 10,
+      "newRoleCase": 1,
+      "postgresMajor": 17,
+      "package": "BUILD SUCCESS"
+    },
+    "http": {
+      "passed": 17,
+      "checks": [
+        "匿名試算 401",
+        "STAFF 試算 403",
+        "ADMIN 唯讀試算、180 天草案與關閉刪除",
+        "單次分類候選加保留等於全部",
+        "真實 SQL 保護分類 CANDIDATE",
+        "真實 SQL 保護分類 QUEUE_IDENTITY",
+        "真實 SQL 保護分類 DELIVERY_UNCERTAIN",
+        "真實 SQL 保護分類 UNRESOLVED_STATUS",
+        "真實 SQL 保護分類 DELIVERY_AUDIT",
+        "真實 SQL 保護分類 ATTEMPT_HISTORY",
+        "真實 SQL 保護分類 FINANCIAL_AUDIT",
+        "真實 SQL 保護分類 RECENT_ACTIVITY",
+        "不接受 request 縮短試算草案門檻",
+        "重複 GET 不改通知、嘗試與訂單歷程",
+        "API 只回彙總且無個資、內容、去重鍵",
+        "ADMIN POST 試算仍拒絕",
+        "ADMIN DELETE 清理端點未授權"
+      ]
+    },
+    "productionBrowser": {
+      "passed": 13,
+      "checks": [
+        "ADMIN 看見三項真實試算數量",
+        "草案期限、截止與唯讀說明清楚",
+        "去重與嘗試保護理由可見",
+        "沒有清理或寄送按鈕",
+        "通知列表篩選不改全站試算",
+        "503 清除舊試算，不顯示零候選",
+        "試算故障不影響列表與佇列",
+        "API 恢復後可重新試算",
+        "列表故障不抹除獨立試算",
+        "390px 手機試算區無橫向溢出",
+        "STAFF 無法進入試算頁",
+        "試算請求全部 GET",
+        "正式產物無未捕捉 JS 錯誤"
+      ]
+    },
+    "compose": {
+      "passed": 4,
+      "checks": [
+        "dev-default-180",
+        "dev-override-365",
+        "prod-default-180",
+        "prod-override-365"
+      ]
+    },
+    "frontend": {
+      "typecheck": true,
+      "productionBuild": true,
+      "optionalExternalFontsBlocked": true,
+      "existingWarnings": [
+        "simplebar non-module",
+        "mixed imports",
+        "large chunks"
+      ]
+    }
+  },
+  "realSqlFixture": {
+    "notificationCount": 9,
+    "candidateDelta": 2,
+    "protectedDelta": 7,
+    "attemptCount": 1,
+    "notificationAttemptTimelineUnchangedByGet": true,
+    "allExistingNotificationAttemptTimelineUnchangedByGetAndFixtureCleanup": true,
+    "syntheticBookingAndNotificationsRemoved": true
+  },
+  "postCleanupObservation": {
+    "totalCount": 239,
+    "candidateCount": 0,
+    "protectedCount": 239
+  },
+  "artifactSha256": {
+    "backendJar": "b28b6f14c035b1d6e744eddda4bac79ce38a034ec0282eaf371ab64b7c2d68ee",
+    "frontendIndex": "4c209823dc8974cec837d8d80ad17ff96fabb999acc4c0fa3ca927fa09ee0153"
+  },
+  "safety": {
+    "noDeleteEndpointsOrJobs": true,
+    "noWorkerOrEmailEnabled": true,
+    "noAccountChanges": true,
+    "onlyCampRepositoryModified": true,
+    "ownedTestInstancesStopped": true,
+    "existingDemonstrationInstancesUntouched": true
+  },
+  "deferred": [
+    "正式保留需求與期限核定",
+    "去重／稽核封存、復原與交易重新核對",
+    "小批次人工清理及競爭保護",
+    "大資料壓測",
+    "本機 PG18／MinIO／真正手機／外部 HTTPS"
+  ]
+}

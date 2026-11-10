@@ -1,0 +1,107 @@
+spring:
+  devtools:
+    restart:
+      enabled: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/fadaiting_camp}
+    username: ${SPRING_DATASOURCE_USERNAME:camp}
+    password: ${SPRING_DATASOURCE_PASSWORD:camp}
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+  mail:
+    host: ${SPRING_MAIL_HOST:}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME:}
+    password: ${SPRING_MAIL_PASSWORD:}
+    properties:
+      "[mail.smtp.auth]": ${SPRING_MAIL_SMTP_AUTH:true}
+      "[mail.smtp.starttls.enable]": ${SPRING_MAIL_SMTP_STARTTLS_ENABLE:true}
+      "[mail.smtp.connectiontimeout]": ${SPRING_MAIL_SMTP_CONNECTION_TIMEOUT:5000}
+      "[mail.smtp.timeout]": ${SPRING_MAIL_SMTP_TIMEOUT:5000}
+      "[mail.smtp.writetimeout]": ${SPRING_MAIL_SMTP_WRITE_TIMEOUT:5000}
+mybatis:
+  type-handlers-package: com.fadaiting.camp.mapper.typehandler
+  configuration:
+    map-underscore-to-camel-case: true #開啟駝峰命名跟_命名的自動轉換
+server:
+  address: ${SERVER_ADDRESS:0.0.0.0}
+  port: 9090
+  servlet:
+    context-path: /fadaiting-camp
+camp:
+  storage:
+    endpoint: ${CAMP_STORAGE_ENDPOINT:http://localhost:9000}
+    access-key: ${CAMP_STORAGE_ACCESS_KEY:}
+    secret-key: ${CAMP_STORAGE_SECRET_KEY:}
+    region: ${CAMP_STORAGE_REGION:us-east-1}
+    public-base-path: ${CAMP_STORAGE_PUBLIC_BASE_PATH:/objects}
+backup:
+  monitor:
+    journal-path: ${BACKUP_MONITOR_JOURNAL_PATH:}
+    source-key: ${BACKUP_MONITOR_SOURCE_KEY:primary}
+    max-backup-age-seconds: ${BACKUP_MONITOR_MAX_BACKUP_AGE_SECONDS:86400}
+    max-restore-age-seconds: ${BACKUP_MONITOR_MAX_RESTORE_AGE_SECONDS:604800}
+    run-timeout-seconds: ${BACKUP_MONITOR_RUN_TIMEOUT_SECONDS:3600}
+    record-limit: ${BACKUP_MONITOR_RECORD_LIMIT:2000}
+notification:
+  retention:
+    preview-days: ${NOTIFICATION_RETENTION_PREVIEW_DAYS:180}
+  queue:
+    worker-enabled: ${NOTIFICATION_WORKER_ENABLED:false}
+    delivery-mode: ${NOTIFICATION_DELIVERY_MODE:disabled}
+    batch-size: ${NOTIFICATION_BATCH_SIZE:20}
+    max-attempts: ${NOTIFICATION_MAX_ATTEMPTS:5}
+    retry-base-seconds: ${NOTIFICATION_RETRY_BASE_SECONDS:60}
+    retry-max-seconds: ${NOTIFICATION_RETRY_MAX_SECONDS:3600}
+    lease-seconds: ${NOTIFICATION_LEASE_SECONDS:120}
+    overdue-threshold-seconds: ${NOTIFICATION_OVERDUE_THRESHOLD_SECONDS:900}
+    sweep-delay-ms: ${NOTIFICATION_SWEEP_DELAY_MS:30000}
+  mail:
+    from-name: ${NOTIFICATION_MAIL_FROM_NAME:發呆亭露營區}
+    from-address: ${NOTIFICATION_MAIL_FROM_ADDRESS:}
+line:
+  identity:
+    enabled: ${LINE_IDENTITY_ENABLED:false}
+    channel-id: ${LINE_LOGIN_CHANNEL_ID:}
+  bot:
+    enabled: ${LINE_BOT_ENABLED:false}
+    channel-secret: ${LINE_BOT_CHANNEL_SECRET:}
+    channel-access-token: ${LINE_BOT_CHANNEL_ACCESS_TOKEN:}
+    api-base-url: ${LINE_BOT_API_BASE_URL:https://api.line.me}
+    frontend-base-url: ${LINE_BOT_FRONTEND_BASE_URL:http://127.0.0.1:5173}
+payment:
+  line-pay:
+    enabled: ${LINE_PAY_ENABLED:false}
+    channel-id: ${LINE_PAY_CHANNEL_ID:}
+    channel-secret: ${LINE_PAY_CHANNEL_SECRET:}
+    api-base-url: ${LINE_PAY_API_BASE_URL:https://sandbox-api-pay.line.me}
+    confirm-url-base: ${LINE_PAY_CONFIRM_URL_BASE:http://127.0.0.1:5173/payment/linepay/confirm}
+    cancel-url: ${LINE_PAY_CANCEL_URL:http://127.0.0.1:5173/payment/cancel}
+    device-profile-id: ${LINE_PAY_DEVICE_PROFILE_ID:}
+  ecpay:
+    enabled: ${ECPAY_ENABLED:false}
+    merchant-id: ${ECPAY_MERCHANT_ID:}
+    hash-key: ${ECPAY_HASH_KEY:}
+    hash-iv: ${ECPAY_HASH_IV:}
+    checkout-url: ${ECPAY_CHECKOUT_URL:https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5}
+    return-url: ${ECPAY_RETURN_URL:http://127.0.0.1:9090/fadaiting-camp/api/public/payment/ecpay/callback}
+    order-result-url: ${ECPAY_ORDER_RESULT_URL:http://127.0.0.1:9090/fadaiting-camp/api/public/payment/ecpay/return}
+    result-page-base-url: ${ECPAY_RESULT_PAGE_BASE_URL:http://127.0.0.1:5173}
+
+booking:
+  hold:
+    minutes: ${BOOKING_HOLD_MINUTES:30}
+    batch-size: ${BOOKING_HOLD_BATCH_SIZE:100}
+    enabled: ${BOOKING_HOLD_ENABLED:true}
+    sweep-delay-ms: ${BOOKING_HOLD_SWEEP_DELAY_MS:60000}
+
+auth:
+  cookie:
+    secure: ${AUTH_COOKIE_SECURE:true}

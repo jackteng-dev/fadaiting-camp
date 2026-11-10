@@ -1,0 +1,12 @@
+# 管理者先建立可信的私有紀錄目錄，再明確加入此唯讀觀測 overlay。
+services:
+  backend:
+    environment:
+      BACKUP_MONITOR_JOURNAL_PATH: /var/lib/camp-backup-journal
+    volumes:
+      - type: bind
+        source: ${BACKUP_MONITOR_JOURNAL_HOST_PATH:?請先指定已存在的私有備份紀錄目錄}
+        target: /var/lib/camp-backup-journal
+        read_only: true
+        bind:
+          create_host_path: false

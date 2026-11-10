@@ -1,0 +1,348 @@
+/**
+ * 後台密度調整。
+ * 這裡只作用在 BaseLayout 的 .admin-layout，避免影響前台官網與登入頁。
+ */
+.admin-layout {
+  --admin-sidebar-width: 288px;
+  --admin-header-height: 72px;
+  --bs-body-font-size: 1rem;
+  font-size: 16px;
+}
+
+.admin-layout .pc-sidebar .navbar-wrapper {
+  width: var(--admin-sidebar-width);
+}
+
+@media (min-width: 1025px) {
+  .admin-layout .pc-sidebar {
+    width: var(--admin-sidebar-width);
+  }
+
+  .admin-layout .pc-sidebar ~ .pc-header {
+    left: var(--admin-sidebar-width);
+    min-height: var(--admin-header-height);
+  }
+
+  .admin-layout .pc-sidebar ~ .pc-container,
+  .admin-layout .pc-sidebar ~ .pc-footer {
+    margin-left: var(--admin-sidebar-width);
+  }
+
+  .admin-layout .pc-sidebar.pc-sidebar-hide {
+    width: 0;
+  }
+
+  .admin-layout .pc-sidebar.pc-sidebar-hide ~ .pc-header {
+    left: 0;
+  }
+
+  .admin-layout .pc-sidebar.pc-sidebar-hide ~ .pc-container,
+  .admin-layout .pc-sidebar.pc-sidebar-hide ~ .pc-footer {
+    margin-left: 0;
+  }
+
+  .admin-layout .pc-header .pc-h-item {
+    min-height: var(--admin-header-height);
+  }
+
+  .admin-layout .pc-container {
+    top: var(--admin-header-height);
+    min-height: calc(100vh - 136px);
+  }
+
+  .admin-layout .pc-footer {
+    margin-top: var(--admin-header-height);
+  }
+}
+
+.admin-layout .pc-sidebar .m-header {
+  height: var(--admin-header-height);
+  padding: 18px 28px;
+}
+
+.admin-layout .pc-sidebar .navbar-content {
+  height: calc(100vh - var(--admin-header-height));
+  padding: 14px 0;
+}
+
+.admin-layout .pc-sidebar .pc-link {
+  padding: 14px 28px;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.admin-layout .pc-sidebar .pc-navbar > .pc-item .pc-submenu .pc-link {
+  padding: 13px 30px 13px 70px;
+  font-size: 16px;
+}
+
+.admin-layout .pc-sidebar .pc-micon {
+  width: 24px;
+  height: 26px;
+  margin-right: 18px;
+}
+
+.admin-layout .pc-sidebar .pc-micon i {
+  font-size: 22px;
+}
+
+.admin-layout .pc-sidebar .pc-arrow > svg {
+  width: 18px;
+  height: 18px;
+}
+
+.admin-layout .pc-header .header-wrapper {
+  padding: 0 28px;
+  gap: 18px;
+  min-width: 0;
+}
+
+.admin-layout .pc-header .header-search .form-control {
+  width: 260px;
+  min-height: 48px;
+  padding: 0.55rem 2.35rem;
+  font-size: 1rem;
+}
+
+.admin-layout .pc-header .header-search .icon-search {
+  top: 15px;
+  left: 15px;
+  width: 16px;
+  height: 16px;
+}
+
+.admin-layout .pc-header .pc-head-link {
+  width: 44px;
+  height: 44px;
+  margin: 0 6px;
+}
+
+.admin-layout .pc-header .header-user-profile .pc-head-link {
+  width: auto;
+  min-width: 132px;
+  gap: 10px;
+  padding: 0 12px;
+  overflow: visible;
+}
+
+.admin-layout .pc-header .header-user-profile .pc-head-link > span {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-layout .pc-header .pc-head-link > i {
+  font-size: 24px;
+}
+
+.admin-layout .pc-header .pc-head-link > svg {
+  width: 24px;
+  height: 24px;
+}
+
+.admin-layout .pc-header .pc-head-link .user-name {
+  font-size: 17px;
+}
+
+.admin-layout .pc-header .header-user-profile .pc-head-link .user-avtar {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  margin-right: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.admin-layout .pc-container .pc-content {
+  padding: 28px 32px 0;
+}
+
+.admin-layout .page-header {
+  min-height: 68px;
+  padding: 16px 0;
+}
+
+.admin-layout h1,
+.admin-layout .h1 {
+  font-size: 2.15rem;
+}
+
+.admin-layout h2,
+.admin-layout .h2 {
+  font-size: 1.85rem;
+}
+
+.admin-layout h3,
+.admin-layout .h3 {
+  font-size: 1.55rem;
+}
+
+.admin-layout h4,
+.admin-layout .h4 {
+  font-size: 1.35rem;
+}
+
+.admin-layout h5,
+.admin-layout .h5 {
+  font-size: 1.15rem;
+}
+
+.admin-layout .card {
+  margin-bottom: 30px;
+}
+
+.admin-layout .card .card-header {
+  padding: 24px 28px;
+}
+
+.admin-layout .card .card-header h5,
+.admin-layout .card .card-header .h5 {
+  font-size: 1.08rem;
+}
+
+.admin-layout .card .card-body {
+  padding: 28px;
+}
+
+.admin-layout .form-label,
+.admin-layout label {
+  font-size: 1rem;
+}
+
+.admin-layout .form-control,
+.admin-layout .form-select,
+.admin-layout .el-input__inner,
+.admin-layout .el-select__wrapper,
+.admin-layout .el-textarea__inner {
+  min-height: 48px;
+  font-size: 1rem;
+}
+
+.admin-layout textarea.form-control,
+.admin-layout .el-textarea__inner {
+  min-height: 120px;
+}
+
+.admin-layout .btn {
+  min-height: 42px;
+  padding: 0.52rem 1rem;
+  font-size: 1rem;
+}
+
+.admin-layout .btn-sm {
+  min-height: 36px;
+  padding: 0.42rem 0.75rem;
+  font-size: 0.95rem;
+}
+
+.admin-layout .table {
+  min-width: 860px;
+  font-size: 1rem;
+}
+
+.admin-layout .card:has(.table) {
+  overflow-x: auto;
+}
+
+.admin-layout .table > :not(caption) > * > * {
+  padding: 1rem 0.85rem;
+  vertical-align: middle;
+  word-break: keep-all;
+}
+
+.admin-layout .table th {
+  white-space: nowrap;
+}
+
+.admin-layout .table th:last-child,
+.admin-layout .table td:last-child {
+  width: 150px;
+  min-width: 150px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.admin-layout .table td:last-child .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  margin-bottom: 0;
+}
+
+.admin-layout .table td:last-child .btn + .btn,
+.admin-layout .table td:last-child .btn.me-2 + .btn {
+  margin-left: 8px;
+}
+
+.admin-layout .table td:last-child .me-2 {
+  margin-right: 0 !important;
+}
+
+.admin-layout .badge {
+  font-size: 0.85rem;
+}
+
+.admin-layout .breadcrumb,
+.admin-layout .text-muted,
+.admin-layout small,
+.admin-layout .small {
+  font-size: 0.95rem;
+}
+
+@media (max-width: 1024px) {
+  .admin-layout {
+    --admin-header-height: 64px;
+  }
+
+  .admin-layout .pc-header .header-wrapper {
+    padding: 0 18px;
+  }
+
+  .admin-layout .pc-container .pc-content {
+    padding: 22px 18px 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .admin-layout .pc-header .header-user-profile .pc-head-link {
+    width: auto;
+    min-width: 118px;
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  .admin-layout .pc-header .header-user-profile .pc-head-link .user-avtar {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+    margin-right: 0;
+  }
+
+  .admin-layout .pc-header .header-user-profile .pc-head-link > span {
+    display: block;
+    max-width: 76px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1600px) {
+  .admin-layout {
+    --admin-sidebar-width: 312px;
+  }
+
+  .admin-layout .pc-header .header-wrapper {
+    padding: 0 34px;
+  }
+
+  .admin-layout .pc-header .header-search .form-control {
+    width: 300px;
+  }
+
+  .admin-layout .pc-container .pc-content {
+    padding: 28px 42px 0;
+  }
+}

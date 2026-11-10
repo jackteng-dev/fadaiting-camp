@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-06",
+  "repository": "Elpsy-Deng/fadaiting-camp",
+  "branch": "main",
+  "remoteMainAtStart": "44964d07f794ef132c78e5bcfd95325b8a2f0e1c",
+  "verifiedCodeCommit": "44964d07f794ef132c78e5bcfd95325b8a2f0e1c",
+  "scope": "平台共用工作流程、交接與文件；本輪不修改商業程式",
+  "frontend": {
+    "command": "npm --prefix frontend run build",
+    "typecheck": true,
+    "productionBuild": "success"
+  },
+  "backend": {
+    "tests": 161,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "BUILD SUCCESS",
+    "conditions": "Maven package；指定 20 組回歸，LINE／通知整合開關啟用，使用 camp 隔離 PostgreSQL／Redis"
+  },
+  "newModelDownloadsOrInference": false,
+  "newPublicTunnelVerification": false,
+  "browserTestsThisStage": false,
+  "privateLogsCommitted": false,
+  "logSha256": {
+    "fadaiting-camp-frontend.log": "a6a83d56e95da362207726e8ac19f9d5054e5d7c813d30ddd348b2398879baa5",
+    "camp-backend.log": "ce57eab64d3300ca91dc4c00d97fa253a1d6426ade5c04121edb9a68c651fc56"
+  }
+}

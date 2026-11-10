@@ -1,0 +1,4 @@
+# metadata 和 volume 一起留在新 /data；不能掛入舊 MinIO volume。
+[leveldb2]
+enabled = true
+dir = "/data/filerldb2"

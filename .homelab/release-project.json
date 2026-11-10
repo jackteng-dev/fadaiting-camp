@@ -1,0 +1,11 @@
+{
+  "project": "camp",
+  "repository": "fadaiting-camp",
+  "accepted_main": "b1c52628db876b8237fc5dd31107d3399019cece",
+  "accepted_ci": 39040783715,
+  "source_paths": [
+    "backend",
+    "frontend",
+    "db"
+  ]
+}

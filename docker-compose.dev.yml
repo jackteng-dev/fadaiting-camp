@@ -1,0 +1,78 @@
+services:
+  backend:
+    image: maven:3.9.11-eclipse-temurin-25
+    container_name: fadaiting-camp-dev-backend
+    working_dir: /workspace
+    command: mvn -DskipTests spring-boot:run
+    environment:
+      JWT_SECRET: ${JWT_SECRET:?請先設定至少32字元的JWT_SECRET}
+      AUTH_COOKIE_SECURE: ${AUTH_COOKIE_SECURE:-false}
+      BACKUP_MONITOR_JOURNAL_PATH: ${BACKUP_MONITOR_JOURNAL_PATH:-}
+      BACKUP_MONITOR_SOURCE_KEY: ${BACKUP_MONITOR_SOURCE_KEY:-primary}
+      BACKUP_MONITOR_MAX_BACKUP_AGE_SECONDS: ${BACKUP_MONITOR_MAX_BACKUP_AGE_SECONDS:-86400}
+      BACKUP_MONITOR_MAX_RESTORE_AGE_SECONDS: ${BACKUP_MONITOR_MAX_RESTORE_AGE_SECONDS:-604800}
+      BACKUP_MONITOR_RUN_TIMEOUT_SECONDS: ${BACKUP_MONITOR_RUN_TIMEOUT_SECONDS:-3600}
+      BACKUP_MONITOR_RECORD_LIMIT: ${BACKUP_MONITOR_RECORD_LIMIT:-2000}
+      LINE_IDENTITY_ENABLED: ${LINE_IDENTITY_ENABLED:-false}
+      LINE_LOGIN_CHANNEL_ID: ${LINE_LOGIN_CHANNEL_ID:-}
+      NOTIFICATION_WORKER_ENABLED: ${NOTIFICATION_WORKER_ENABLED:-false}
+      NOTIFICATION_RETENTION_PREVIEW_DAYS: ${NOTIFICATION_RETENTION_PREVIEW_DAYS:-180}
+      NOTIFICATION_DELIVERY_MODE: ${NOTIFICATION_DELIVERY_MODE:-disabled}
+      NOTIFICATION_BATCH_SIZE: ${NOTIFICATION_BATCH_SIZE:-20}
+      NOTIFICATION_MAX_ATTEMPTS: ${NOTIFICATION_MAX_ATTEMPTS:-5}
+      NOTIFICATION_RETRY_BASE_SECONDS: ${NOTIFICATION_RETRY_BASE_SECONDS:-60}
+      NOTIFICATION_RETRY_MAX_SECONDS: ${NOTIFICATION_RETRY_MAX_SECONDS:-3600}
+      NOTIFICATION_LEASE_SECONDS: ${NOTIFICATION_LEASE_SECONDS:-120}
+      NOTIFICATION_OVERDUE_THRESHOLD_SECONDS: ${NOTIFICATION_OVERDUE_THRESHOLD_SECONDS:-900}
+      NOTIFICATION_SWEEP_DELAY_MS: ${NOTIFICATION_SWEEP_DELAY_MS:-30000}
+      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST:-}
+      SPRING_MAIL_PORT: ${SPRING_MAIL_PORT:-587}
+      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME:-}
+      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD:-}
+      NOTIFICATION_MAIL_FROM_ADDRESS: ${NOTIFICATION_MAIL_FROM_ADDRESS:-}
+      NOTIFICATION_MAIL_FROM_NAME: ${NOTIFICATION_MAIL_FROM_NAME:-發呆亭露營區}
+      BOOKING_HOLD_MINUTES: ${BOOKING_HOLD_MINUTES:-30}
+      BOOKING_HOLD_ENABLED: ${BOOKING_HOLD_ENABLED:-true}
+      BOOKING_HOLD_BATCH_SIZE: ${BOOKING_HOLD_BATCH_SIZE:-100}
+      BOOKING_HOLD_SWEEP_DELAY_MS: ${BOOKING_HOLD_SWEEP_DELAY_MS:-60000}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/fadaiting_camp
+      SPRING_DATASOURCE_USERNAME: camp
+      SPRING_DATASOURCE_PASSWORD: camp
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      CAMP_STORAGE_ENDPOINT: http://seaweed:8333
+      CAMP_STORAGE_ACCESS_KEY: ${CAMP_STORAGE_ACCESS_KEY:?請設定Camp專用S3金鑰}
+      CAMP_STORAGE_SECRET_KEY: ${CAMP_STORAGE_SECRET_KEY:?請設定Camp專用S3秘密}
+      CAMP_STORAGE_PUBLIC_BASE_PATH: /objects
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      seaweed:
+        condition: service_healthy
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./backend:/workspace
+      - maven-cache:/root/.m2
+
+  frontend:
+    image: node:24-alpine
+    container_name: fadaiting-camp-dev-frontend
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    environment:
+      VITE_API_PROXY_TARGET: http://backend:9090/fadaiting-camp
+      VITE_OBJECT_PROXY_TARGET: http://seaweed:8333
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - frontend-node-modules:/app/node_modules
+
+volumes:
+  maven-cache:
+  frontend-node-modules:

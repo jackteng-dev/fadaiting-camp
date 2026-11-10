@@ -1,0 +1,7 @@
+# 三個圖片 bucket 各使用獨立 collection，避免第一個 bucket 一次吃掉全部四個 volume。
+[master.volume_growth]
+copy_1 = 1
+copy_2 = 1
+copy_3 = 1
+copy_other = 1
+threshold = 0.9

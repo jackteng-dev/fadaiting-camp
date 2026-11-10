@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-06",
+  "repository": "Elpsy-Deng/fadaiting-camp",
+  "branch": "codex/camp-operational-roles",
+  "scope": "Cookie／CSRF／JWT 效期與 refresh 競爭、LINE 伺服器身分核驗與逐筆綁定",
+  "environment": {
+    "database": "隔離 PostgreSQL 17",
+    "redis": "隔離 Redis 7",
+    "java": "25",
+    "frontend": "Vue 3／Vite",
+    "browser": "Chromium／Playwright",
+    "access": "本環境 loopback HTTP；本輪未驗證外部 HTTPS"
+  },
+  "backend": {
+    "passed": 137,
+    "unitAndRegression": 127,
+    "realHttpLineIntegration": 10,
+    "failed": 0,
+    "skipped": 0,
+    "suites": [
+      "CampRolePolicyTest",
+      "JwtAuthenticationFilterTest",
+      "CampAccessServiceTest",
+      "BookingStaffAccessTest",
+      "BookingStayServiceTest",
+      "StaffAccountServiceTest",
+      "BookingStateTransitionTest",
+      "BookingHoldServiceTest",
+      "BookingInventoryServiceTest",
+      "PaymentLifecycleTest",
+      "PaymentFinancialServiceTest",
+      "UuidTypeHandlerTest",
+      "PaymentFinancialVisibilityTest",
+      "LineIdentityVerifierTest",
+      "LineIdTokenHttpClientTest",
+      "SessionCookieServiceTest",
+      "JwtLifetimeTest",
+      "LineIdentityIntegrationTest"
+    ],
+    "package": "成功"
+  },
+  "frontend": {
+    "typecheck": "通過",
+    "productionBuild": "通過"
+  },
+  "migration": {
+    "replayUnchanged": true,
+    "existingBindingsPreserved": true,
+    "legacyIdentityNotBackfilled": true
+  },
+  "httpPostgresRedis": {
+    "passed": 41,
+    "checks": [
+      "匿名可取得同源 CSRF bootstrap 且禁止快取",
+      "CSRF cookie 為 HttpOnly／Lax／host-only",
+      "登入缺 CSRF header 被阻擋",
+      "登入錯誤 CSRF token 被阻擋",
+      "只有 header 沒有對應 cookie 不能登入",
+      "跨站表單欄位不能代替 CSRF header",
+      "成功登入輪替 CSRF cookie",
+      "登入採 camp cookie 且沒有舊 JWT cookie",
+      "HTTP 開發須明確關閉 Secure，JWT cookie 仍 HttpOnly／Lax",
+      "Access JWT 簽章實際為15分鐘",
+      "Refresh JWT 簽章實際為7天",
+      "登入後可取得本人資料",
+      "登入前 CSRF token 不能執行登入後操作",
+      "已有 JWT cookie 仍需 CSRF",
+      "有效 CSRF 與 ADMIN 可正常查詢管理資料",
+      "STAFF 金流仍由角色政策拒絕",
+      "STAFF 合法讀取仍正常",
+      "CSRF token 不授予後台登入權限",
+      "刷新缺 CSRF 被阻擋",
+      "登出缺 CSRF 不撤銷 session",
+      "有 CSRF 可輪替 refresh",
+      "舊 refresh 不可重播",
+      "舊 refresh 的登出不撤銷新 session",
+      "併發 refresh 只允許一個 JTI 輪替成功",
+      "未設定 LINE 不信任自報 userId",
+      "未設定 LINE fail-closed /public/line/booking/list",
+      "未設定 LINE fail-closed /public/line/booking/detail",
+      "未設定 LINE fail-closed /public/line/bind/request",
+      "未設定 LINE fail-closed /public/line/bind/confirm",
+      "公開營區 API 不要求後台 cookie／CSRF",
+      "公開預約仍可不帶後台 CSRF 送單",
+      "缺 CSRF 不寫入訂單或歷程",
+      "STAFF 正確 CSRF 可保存交接備註",
+      "mock 支付建立保留公開流程",
+      "mock 確認付款正常歸帳",
+      "ADMIN 正確 CSRF 可取消並釋放庫存",
+      "缺 CSRF 不建立退款或保留額度",
+      "有 CSRF 可登出並清 cookie",
+      "登出後 CSRF token 改變",
+      "登出後不能再讀管理資料",
+      "公開金流 callback 仍走自身驗簽而非 CSRF"
+    ]
+  },
+  "browser": {
+    "passed": 11,
+    "checks": [
+      "Vue 登入自動 bootstrap 並提交 CSRF",
+      "瀏覽器 session cookie 保持 HttpOnly／Lax",
+      "document.cookie 看不到登入或 CSRF token",
+      "CSRF cookie 失效後最多重試一次且恢復申請",
+      "CSRF 恢復後只建立一筆退款與保留額度",
+      "連續審核與模擬沿用正常 CSRF，不再額外失敗",
+      "STAFF 仍只看到現場操作",
+      "STAFF 手機寫入自動帶 CSRF",
+      "Vue 登出帶 CSRF 並回登入頁",
+      "登出後 JWT cookie 已清除",
+      "沒有未處理頁面錯誤"
+    ]
+  },
+  "lineIntegration": [
+    "LINE provider 使用只存在 test classpath 的合成 adapter；沒有正式程式偽身分開關",
+    "核驗有效／過期／錯誤 audience／provider 失敗",
+    "綁定 token 固定 subject；竊取者無法消耗",
+    "profile 只取伺服器核驗結果，忽略客戶端自報",
+    "同電話未綁訂單不可讀；同帳號可逐筆綁定多單",
+    "舊 active 綁定無核驗時間不授權",
+    "到期 token 不可消耗；併發只成功一次；其他帳號不可靜默移轉",
+    "資料庫故障時綁定與舊記錄變更全部回滾"
+  ],
+  "constraints": [
+    "未用真實 LINE token／手機驗收；獨立 fadaiting-line 呼叫方仍待更新",
+    "HTTPS Secure／__Host 屬性已測；正式 TLS 網域尚未驗收",
+    "LINE 關閉或無 Channel 時 fail-closed；不接受自報 userId",
+    "沒有真實金流退款、寄送 Email 或 LINE 訊息、付費服務",
+    "沒有修改帳號設定、其他專案或 main 分支",
+    "既有資料庫須先備份並補 007；舊 cookie 重新登入、舊 LINE 綁定重新核驗"
+  ],
+  "artifacts": [
+    {
+      "path": "work/security-verification/maven.log",
+      "sha256": "bc3147a0e0ed620c8ca9de8b287a32bfc44034c56b6ae888073828334ed5d023",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    },
+    {
+      "path": "work/security-verification/frontend-build.log",
+      "sha256": "01e58b103bf581d0130b2423ab65070c518ca1bf6f5f230e19af596c2f8459db",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    },
+    {
+      "path": "work/security-verification/security-desktop.png",
+      "sha256": "53104d91d0ccfa6b978b18497220892be3369d35a684c7d483555967ec3b7736",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    },
+    {
+      "path": "work/security-verification/security-mobile.png",
+      "sha256": "79ba560d47809c6a5e9cda5bfb91f9255fedfa0df33c6778553e9edba0b3e520",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    }
+  ]
+}

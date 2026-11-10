@@ -1,0 +1,47 @@
+# Java
+backend/target/
+*.class
+*.log
+
+# Node
+frontend/node_modules/
+frontend/dist/
+*.tsbuildinfo
+fadaiting-line/server/node_modules/
+fadaiting-line/server/dist/
+fadaiting-line/server/logs/
+fadaiting-line/web/node_modules/
+fadaiting-line/web/dist/
+
+# IDE
+.idea/
+.vscode/
+.codex-runtime/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Environment overrides
+.env
+.env.*
+!.env.example
+line_secret_token.txt
+
+# Local plaintext test account sheets
+db/test-accounts-plaintext.xlsx
+db/test-accounts-plaintext.json
+db/~$*.xlsx
+frontend/public/local-userscripts/
+
+.codex-logs/
+
+# Cloud 工作目錄
+work/
+
+# Python 備份工具暫存
+__pycache__/
+*.py[cod]
+
+# 試算表匯出診斷亦可能含帳密
+db/test-accounts-plaintext.xlsx.inspect.ndjson

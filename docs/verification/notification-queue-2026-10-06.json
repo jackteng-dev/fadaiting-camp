@@ -1,0 +1,172 @@
+{
+  "date": "2026-10-06",
+  "repository": "Elpsy-Deng/fadaiting-camp",
+  "branch": "codex/camp-operational-roles",
+  "scope": "PostgreSQL 通知 outbox、租約與去重、退避重試、嘗試紀錄與 ADMIN 免費模擬／人工操作",
+  "environment": {
+    "database": "隔離 PostgreSQL 17",
+    "redis": "隔離 Redis 7",
+    "java": "25",
+    "frontend": "Vue 3／Vite",
+    "browser": "Chromium／Playwright",
+    "access": "本環境 loopback HTTP；本輪未驗證外部 HTTPS"
+  },
+  "backend": {
+    "passed": 161,
+    "unitAndRegression": 134,
+    "notificationDatabaseIntegration": 17,
+    "lineHttpRegression": 10,
+    "failed": 0,
+    "skipped": 0,
+    "suites": [
+      "CampRolePolicyTest",
+      "JwtAuthenticationFilterTest",
+      "CampAccessServiceTest",
+      "BookingStaffAccessTest",
+      "BookingStayServiceTest",
+      "StaffAccountServiceTest",
+      "BookingStateTransitionTest",
+      "BookingHoldServiceTest",
+      "BookingInventoryServiceTest",
+      "PaymentLifecycleTest",
+      "PaymentFinancialServiceTest",
+      "UuidTypeHandlerTest",
+      "PaymentFinancialVisibilityTest",
+      "LineIdentityVerifierTest",
+      "LineIdTokenHttpClientTest",
+      "SessionCookieServiceTest",
+      "JwtLifetimeTest",
+      "LineIdentityIntegrationTest",
+      "NotificationQueueIntegrationTest",
+      "NotificationDeliveryGatewayTest"
+    ],
+    "package": "成功"
+  },
+  "frontend": {
+    "typecheck": "通過",
+    "productionBuild": "通過"
+  },
+  "migration": {
+    "replayUnchanged": true,
+    "existingNotificationsPreserved": true,
+    "legacyNotAutoEnqueued": true
+  },
+  "httpPostgresRedis": {
+    "passed": 39,
+    "checks": [
+      "匿名拒絕 GET /notification/queue",
+      "STAFF 拒絕 GET /notification/queue",
+      "匿名拒絕 GET /notification/1/attempts",
+      "STAFF 拒絕 GET /notification/1/attempts",
+      "匿名拒絕 POST /notification/list",
+      "STAFF 拒絕 POST /notification/list",
+      "匿名拒絕 POST /notification/simulate-queued",
+      "STAFF 拒絕 POST /notification/simulate-queued",
+      "匿名拒絕 POST /notification/send-queued",
+      "STAFF 拒絕 POST /notification/send-queued",
+      "匿名拒絕 PATCH /notification/status",
+      "STAFF 拒絕 PATCH /notification/status",
+      "匿名拒絕 POST /notification/departure-reminders",
+      "STAFF 拒絕 POST /notification/departure-reminders",
+      "預設真實寄信與自動 worker 關閉",
+      "公開送單與通知同時入列且分旅客／站內通道",
+      "管理列表不暴露 lease token",
+      "CSRF 缺漏不能處理佇列",
+      "SMTP 關閉拒絕寄信且不領取任務",
+      "禁止把未寄 Email 人工標記已發送",
+      "免費模擬只計入 simulated 不計入 sent",
+      "重複模擬不再次領取終態通知",
+      "嘗試紀錄有模式／時間／操作者，沒有 recipient 或 lease token",
+      "終態通知不能重新排入",
+      "站內提醒可確認且不假造寄信",
+      "格式錯誤為永久失敗，不自動重试",
+      "操作需要版本與原因",
+      "舊版本操作拒絕並保留失敗狀態",
+      "未提供 Email 保留人工略過紀錄，不進寄送佇列",
+      "非法批次數量被拒絕且不領取",
+      "重複付款確認不重複建立通知",
+      "舊通知仍保留且不自動入列",
+      "通知列表資料庫分頁保留正確總數",
+      "缺 CSRF 不能修改通知狀態",
+      "公開查單不曝光通知原因或嘗試紀錄",
+      "產生出發提醒只計入 createdCount 不假造寄信",
+      "重複產生提醒保留一筆 event key",
+      "付款與提醒依各自事件免費模擬，已寄數維持零",
+      "提醒送出後仍保留獨立的站內通知"
+    ]
+  },
+  "browser": {
+    "passed": 13,
+    "checks": [
+      "後台顯示免費模擬與自動處理關閉",
+      "未設定 SMTP 不顯示真實寄信入口",
+      "失敗通知顯示原因與嘗試次數",
+      "可核對每次模式、操作者與錯誤",
+      "手動重新排入保留舊次數並擴充重試額度",
+      "手動重試後可模擬完成且無重發入口",
+      "重試保留前次失敗與本次完成紀錄",
+      "站內確認與 Email 發送狀態分開",
+      "待處理通知可留原因後略過",
+      "手機篩選與摘要可用且頁面沒有水平溢出",
+      "手機可核對完整重試紀錄",
+      "瀏覽器通知操作沒有非預期 API 錯誤",
+      "沒有未處理頁面錯誤"
+    ]
+  },
+  "visualFollowup": "調整表格欄寬後唯讀確認桌面與手機，無新增任務或嘗試",
+  "databaseIntegration": [
+    "預約與每筆付款事件去重，業務回滾不留下 outbox",
+    "模擬結果與 sent／sent_time 分開",
+    "暫時失敗依台北 Clock 到期重試，永久失敗不自動重試",
+    "次數用盡停止，人工新版本重試追加預算並保留累積歷史",
+    "兩個 worker 只領一份，租約在 transport 前提交",
+    "模擬中斷安全退避，SMTP 中斷結果不明則隔離待人工核對",
+    "舊 worker 完成不可覆寫租約回收後狀態",
+    "歷程 DB 故障回滾完成狀態，SMTP 結果不明不自動重寄",
+    "Email 不能偽標已寄送，終態不能重新排入",
+    "舊通知不入列，站內提醒獨立確認",
+    "取消／入住／改期使不適用通知略過",
+    "出發提醒 confirmed 未入住、併發去重",
+    "mode 不靜默切換，資料庫分頁保留總數"
+  ],
+  "constraints": [
+    "合成 transport 僅 test classpath；SMTP adapter 以 mock sender 驗證分類與錯誤遮蔽",
+    "未連外 SMTP、寄送 Email／LINE 或使用付費服務",
+    "SMTP 不保證外部 exactly-once；實際送達、退信與免費額度尚未驗收",
+    "沒有修改帳號設定、其他專案或 main 分支",
+    "真實寄信與自動 worker 預設關閉；舊通知保留但不自動入列",
+    "本機既有 DB 備份升級、Mailpit／真實帳號、額外通知事件與保留清理策略仍待補"
+  ],
+  "artifacts": [
+    {
+      "path": "work/notification-verification/maven.log",
+      "sha256": "f62ff7b022138c20b2c8a75859098dadab7bf8f383517320ea5b666d30fd50ec",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    },
+    {
+      "path": "work/notification-verification/frontend-build.log",
+      "sha256": "6bdfd97e16b10535939b873de99858bacc43aec10cff0e1f6fbbfa7f7c6beb23",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    },
+    {
+      "path": "work/notification-verification/notification-list.png",
+      "sha256": "541d0fb05320b4ed5512a6e26c8abba0b925034b46602a7dc14d06f1bbd23705",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    },
+    {
+      "path": "work/notification-verification/notification-desktop.png",
+      "sha256": "5fed9e4f0afdd90d482a78d1794481c5f5d5f6725c26653adeb4f1fdb6ec3830",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    },
+    {
+      "path": "work/notification-verification/notification-mobile.png",
+      "sha256": "c76123f00435750df06600ea27aaa0692dcd35ed66b38e4122d4c164ba4e1c29",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    }
+  ],
+  "compose": {
+    "devConfig": "通過",
+    "prodConfig": "通過",
+    "newContainersBuilt": false
+  }
+}

@@ -1,0 +1,58 @@
+name: fadaiting-camp-dev
+
+services:
+  postgres:
+    image: postgres:18
+    container_name: fadaiting-camp-postgres
+    environment:
+      POSTGRES_DB: fadaiting_camp
+      POSTGRES_USER: camp
+      POSTGRES_PASSWORD: camp
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U camp -d fadaiting_camp"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:8
+    container_name: fadaiting-camp-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  seaweed:
+    image: chrislusf/seaweedfs@sha256:49312939c00c01e5ee6afbd7d728b18027821d3764c35a797a72acd4fdf3296a
+    command: server -dir=/data -ip=127.0.0.1 -ip.bind=0.0.0.0 -volume.max=4 -master.volumeSizeLimitMB=128 -filer -s3 -s3.config=/etc/seaweedfs/s3.json
+    ports:
+      - "127.0.0.1:9000:8333"
+    volumes:
+      - seaweed-data:/data
+      - ${CAMP_STORAGE_CONFIG_FILE:?請先產生私有SeaweedFS設定}:/etc/seaweedfs/s3.json:ro
+      - ./config/seaweed-master.toml:/etc/seaweedfs/master.toml:ro
+      - ./config/seaweed-filer.toml:/etc/seaweedfs/filer.toml:ro
+    healthcheck:
+      test: ["CMD", "wget", "-Y", "off", "-q", "-O", "/dev/null", "http://127.0.0.1:8888/healthz"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+
+volumes:
+  postgres-data:
+    name: fadaiting-camp-dev_postgres-data
+  redis-data:
+    name: fadaiting-camp-dev_redis-data
+  seaweed-data:
+    name: fadaiting-camp-dev_seaweed-data

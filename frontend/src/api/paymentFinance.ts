@@ -1,0 +1,42 @@
+import request from "@/api/api";
+
+export type RefundRecord = {
+  id: number;
+  paymentRecordId: number;
+  amount: number;
+  status: "requested" | "approved" | "rejected" | "completed" | "simulated";
+  reason: string;
+  decisionNote: string | null;
+  externalReference: string | null;
+  requestedBy: number;
+  decidedBy: number | null;
+  completedBy: number | null;
+  requestedAt: string;
+  decidedAt: string | null;
+  completedAt: string | null;
+  operationVersion: number;
+};
+export type PaymentFinancialResponse = {
+  paymentRecordId: number;
+  paymentStatus: string;
+  bookingStatus: string;
+  canRequestRefund: boolean;
+  operationVersion: number;
+  bookingOperationVersion: number;
+  reconciliationStatus: string;
+  reconciliationNote: string | null;
+  reconciliationReference: string | null;
+  reconciledBy: number | null;
+  reconciledAt: string | null;
+  amount: number;
+  completedRefundAmount: number;
+  reservedRefundAmount: number;
+  availableRefundAmount: number;
+  ledgerPaidAmount: number;
+  bookingPaidAmount: number;
+  refunds: RefundRecord[];
+};
+export const getPaymentFinancialService = (id: number) => request.get(`/payment/finance/${id}`);
+export const createRefundService = (payload: { paymentRecordId: number; amount: number; reason: string; idempotencyKey: string; expectedVersion: number }) => request.post("/payment/refunds", payload);
+export const updateRefundService = (id: number, payload: { action: string; expectedVersion: number; note: string; externalReference?: string }) => request.patch(`/payment/refunds/${id}`, payload);
+export const updatePaymentReconciliationService = (id: number, payload: { resolution: string; expectedVersion: number; expectedBookingVersion: number; note: string; externalReference: string }) => request.patch(`/payment/reconciliation/${id}`, payload);

@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-06",
+  "repository": "Elpsy-Deng/fadaiting-camp",
+  "sourceMainCommit": "9b1b47469168208c302674a2479772d827a740bb",
+  "scope": "八項工作階段與 context 安全規則；只改文件",
+  "rules": 8,
+  "copiesConsistent": true,
+  "frontend": "typecheck and production build passed",
+  "backend": {
+    "tests": 161,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "build": "passed",
+    "conditions": "Maven package；指定 20 組回歸、LINE／通知整合開關啟用，使用 camp 隔離 PostgreSQL／Redis"
+  },
+  "preciseContextOrAccountUsageToolAvailable": false,
+  "browserOrModelQualityTestsThisStage": false,
+  "logSha256": {
+    "fadaiting-camp-frontend.log": "8b2285f4834da270e0b3530524bc03dc87b3afae742de28968e09da0433ea1f8",
+    "camp-backend.log": "bb16ce77b8ceef447444fb4958d4e1d935115d5e2d1520218ebd6e951073ca08"
+  }
+}

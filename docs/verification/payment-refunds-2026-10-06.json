@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-06",
+  "repository": "Elpsy-Deng/fadaiting-camp",
+  "branch": "codex/camp-operational-roles",
+  "scope": "退款申請、審核、模擬、人工完成及收款核對；僅免費 mock／合成憑證",
+  "environment": {
+    "database": "隔離 PostgreSQL 17",
+    "redis": "隔離 Redis 7",
+    "java": "25",
+    "frontend": "Vue 3／Vite",
+    "browser": "Chromium／Playwright",
+    "access": "本環境 loopback HTTP；本輪未驗證外部 HTTPS"
+  },
+  "backend": {
+    "passed": 102,
+    "failed": 0,
+    "skipped": 0,
+    "suites": [
+      "CampRolePolicyTest",
+      "JwtAuthenticationFilterTest",
+      "CampAccessServiceTest",
+      "BookingStaffAccessTest",
+      "BookingStayServiceTest",
+      "StaffAccountServiceTest",
+      "BookingStateTransitionTest",
+      "BookingHoldServiceTest",
+      "BookingInventoryServiceTest",
+      "PaymentLifecycleTest",
+      "PaymentFinancialServiceTest",
+      "UuidTypeHandlerTest",
+      "PaymentFinancialVisibilityTest"
+    ],
+    "package": "成功"
+  },
+  "frontend": {
+    "typecheck": "通過",
+    "productionBuild": "通過"
+  },
+  "migration": {
+    "replayUnchanged": true
+  },
+  "httpPostgresRedis": {
+    "passed": 61,
+    "checks": [
+      "初始付款總額與訂單淨額一致",
+      "匿名拒絕 GET /payment/finance/32",
+      "匿名拒絕 POST /payment/refunds",
+      "匿名拒絕 PATCH /payment/refunds/1",
+      "匿名拒絕 PATCH /payment/reconciliation/32",
+      "STAFF拒絕 GET /payment/finance/32",
+      "STAFF拒絕 POST /payment/refunds",
+      "STAFF拒絕 PATCH /payment/refunds/1",
+      "STAFF拒絕 PATCH /payment/reconciliation/32",
+      "拒絕無效輸入 amount -1",
+      "拒絕無效輸入 amount 0",
+      "拒絕無效輸入 amount 0.001",
+      "拒絕無效輸入 idempotencyKey invalid",
+      "拒絕無效輸入 expectedVersion None",
+      "拒絕無效輸入 reason ",
+      "同內容同識別碼重試不重複保留",
+      "同識別碼不同內容拒絕",
+      "舊付款版本拒絕新增",
+      "未核准不能完成",
+      "待退款取消訂單不可重開",
+      "駁回釋放保留額度並保存審核者",
+      "駁回退款為終態",
+      "核准保存版本與審核紀錄",
+      "舊退款版本拒絕改寫",
+      "模擬完成不扣實際已收且釋放額度",
+      "模擬結果為終態",
+      "人工完成必須憑證",
+      "人工完成保留原收款但扣訂單淨額",
+      "人工完成紀錄含管理員時間及正規憑證",
+      "重複完成不再次扣帳",
+      "已實退訂單不可重開",
+      "已退款不能再建立付款補餘額",
+      "公開查單僅曝光實退金額",
+      "STAFF細節不曝光核對憑證",
+      "同付款憑證忽略大小寫不得重用",
+      "舊付款確認不重複歸帳或抵銷退款",
+      "進行中一般預約拒絕退款",
+      "併發申請只能一筆成功且不超退",
+      "併發完成只扣款與記錄一次",
+      "舊帳不一致拒絕人工完成",
+      "舊訂單版本不可同步帳本",
+      "有憑證核對舊帳並同步付款淨額",
+      "核對後可扣實際退款",
+      "未核對晚到款不能直接退款",
+      "晚到款人工歸帳不恢復取消與庫存",
+      "核對回應含最新訂單版本",
+      "晚到款不能重複歸帳",
+      "安排退款的晚到款不重複扣訂單",
+      "全額退款已無申請額度",
+      "新增歷程故障回滾退款與付款版本",
+      "完成歷程故障回滾扣帳狀態與版本",
+      "退款歷程有真實操作者且公開歷程不含退款原因",
+      "現版本也不能超過部分退款後額度",
+      "完成住宿訂單可退款但不再收退款差額",
+      "只有模擬紀錄的取消訂單可依庫存重開",
+      "只有駁回紀錄的取消訂單可重開",
+      "多筆收款扣退款淨額不重複 JOIN",
+      "人工退款歷程保存各階段處理說明",
+      "STAFF不能從歷程旁路讀核對憑證與說明",
+      "ADMIN仍可核對完整內部歷程",
+      "公開查單不曝光人工核對歷程與憑證"
+    ]
+  },
+  "browser": {
+    "passed": 13,
+    "checks": [
+      "管理員可從訂單開啟退款對帳",
+      "退款申請顯示待審核及保留額度",
+      "審核後才出現完成操作",
+      "模擬完成不計入實退金額",
+      "人工完成保存憑證與實退總額",
+      "完成紀錄無重複完成按鈕",
+      "訂單明細提示退款後人工核對",
+      "付款紀錄列表提供相同對帳入口",
+      "待核對收款可安排退款後才申請",
+      "STAFF明細沒有退款與對帳入口",
+      "旅客查單可見退款金額且不再提供付款",
+      "手機查單退款提示可見",
+      "沒有未處理頁面錯誤"
+    ]
+  },
+  "constraints": [
+    "未呼叫真實退款／商家查單 API，無資金轉移",
+    "人工完成以合成憑證驗證，未驗證銀行憑證",
+    "沒有寄送 Email 或 LINE 訊息",
+    "沒有修改測試帳號、其他專案或 main 分支",
+    "本機既有 DB、商家 sandbox、淨收入報表與雙人覆核仍待補"
+  ],
+  "artifacts": [
+    {
+      "path": "work/refund-verification/maven.log",
+      "sha256": "7c3ecd25406d822ab684e7e84c796569e4d730aeb1b98f63d37d72f391ff2c2b",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    },
+    {
+      "path": "work/refund-verification/frontend-build.log",
+      "sha256": "83541bb07e78bc76d9133b4189083cf5ab4993f51cfa8349b2e77409af98cd49",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    },
+    {
+      "path": "work/refund-verification/refund-desktop.png",
+      "sha256": "7ba5fbcdffe3cd93bd981acf0fc7be77f1fcf9b699e11f5d8d73b6d8cd47a298",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    },
+    {
+      "path": "work/refund-verification/refund-mobile.png",
+      "sha256": "6cfb9e2e687faef5c6abdb8a02eec460b07994d66dae7c34b0dad719cef9c4d9",
+      "location": "本環境 ignored work 目錄，未上傳原始日誌／圖片"
+    }
+  ]
+}

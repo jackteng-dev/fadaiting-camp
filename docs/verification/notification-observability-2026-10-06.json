@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-06",
+  "project": "fadaiting-camp",
+  "baseCommit": "7a3bd013198f8acae64b7ac8217895ba22b56441",
+  "scope": "ADMIN notification queue read-only metrics and in-page alerts",
+  "postgresMajor": 17,
+  "backend": {
+    "passed": 165,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "mavenPackage": "success",
+    "newObservationIntegrationTests": 4,
+    "notificationAndLineIntegrationEnabled": true
+  },
+  "frontend": {
+    "typecheck": "success",
+    "productionBuild": "success",
+    "browserTarget": "production build preview, not dev server",
+    "existingWarnings": [
+      "simplebar non-module",
+      "static/dynamic import",
+      "chunk larger than 500kB"
+    ],
+    "finalBuildIncludesListFailureState": true
+  },
+  "http": {
+    "passed": 17,
+    "checks": [
+      "匿名無權讀取佇列觀測",
+      "STAFF 無權讀取佇列觀測",
+      "實際 HTTP 彙總 dueCount",
+      "實際 HTTP 彙總 waitingCount",
+      "實際 HTTP 彙總 processingCount",
+      "實際 HTTP 彙總 failedCount",
+      "實際 HTTP 彙總 uncertainCount",
+      "實際 HTTP 彙總 expiredLeaseCount",
+      "實際 HTTP 彙總 overdueCount",
+      "實際 HTTP 彙總 blockedCount",
+      "預設 worker／真實寄信關閉",
+      "告警健康等級需優先核對",
+      "六類告警與建議皆呈現",
+      "門檻與最早待處理時間存在",
+      "觀測回應沒有收件人／內文／訂單／租約 token",
+      "GET 觀測不回收租約、不改版本／狀態／重試",
+      "GET 觀測不新增寄送嘗試"
+    ]
+  },
+  "browser": {
+    "passed": 14,
+    "checks": [
+      "正式產物保留 Bootstrap 全域提示框功能",
+      "ADMIN 看見六項佇列指標",
+      "Critical 告警提示人工核對、勿直接重送",
+      "頁面明示全站範圍、worker 關閉及觀測時間",
+      "列表篩選不縮小全站告警範圍",
+      "觀測 API 失敗不保留舊指標或假造健康狀態",
+      "觀測 API 失敗時列表仍可載入",
+      "恢復 API 後重新取得當前指標",
+      "較晚抵達的舊請求不能覆蓋新觀測",
+      "手機觀測區卡片不超出 viewport",
+      "STAFF 前端無法進入通知營運觀測",
+      "瀏覽器沒有 JavaScript 未捕捉錯誤",
+      "列表 API 失敗仍顯示觀測，明示未載入而非零筆",
+      "列表 API 恢復後解除錯誤且最新正式頁面沒有 JS 錯誤"
+    ]
+  },
+  "composeConfig": {
+    "dev": "success",
+    "production": "success"
+  },
+  "cleanup": {
+    "syntheticBookingRemoved": true,
+    "syntheticNotificationsRemoved": true,
+    "ownBackendStopped": true,
+    "ownPreviewStopped": true
+  },
+  "guardrails": [
+    "ADMIN only; STAFF403; anonymous401",
+    "no recipient/message/order/payload/lease token in observation response",
+    "GET does not claim/recover/update/send; no attempt created",
+    "queue defaults disabled and worker off",
+    "fixtures use existing testing accounts; no account/password changes",
+    "no paid service, real SMTP/LINE/payment, model download or other repository mutation"
+  ],
+  "resolvedIssue": "production Bootstrap UMD left require(@popperjs/core); use installed npm ESM with global bootstrap bridge",
+  "deferred": [
+    "persistent backup success/restore status",
+    "notification retention/cleanup policy",
+    "worker heartbeat/trends/external alert delivery",
+    "local PostgreSQL18/MinIO/full recovery",
+    "real SMTP/LINE/device/sandbox validation",
+    "large data performance/SLA"
+  ],
+  "logSha256": {
+    "maven.log": "786dd0e266e5eb374fd3c278dc8a5b4dba5577a61d17ebb77c3aa52b91f699ce",
+    "frontend-build.log": "5ffe8e6637ffaf980eaeb3fc52970d07174e60dd62535f7d2de3e433e5f316dd",
+    "http-results.json": "4e956b3a01f60fbac51feb67efb6306ecaf5a266f925be06d50d8ee20d880ee4",
+    "browser-results.json": "d72766f8a6dc04aa804e9361a5a946a5a651086031a23fde91f9d8c37e6e0bc7"
+  },
+  "browserVerificationNotes": "12 initial checks plus 2 list failure/recovery checks on final production build; optional non-local font requests blocked in followup"
+}

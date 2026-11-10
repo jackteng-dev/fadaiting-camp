@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-06",
+  "project": "fadaiting-camp",
+  "baseCommit": "60903450e3d3a210d3963088e1bc2dbf91ec0e29",
+  "scope": "PostgreSQL public schema backup and isolated restore",
+  "postgresMajor": 17,
+  "composeDefaultMajorNotTested": 18,
+  "restore": {
+    "verified": true,
+    "tables": 28,
+    "rows": 2447,
+    "foreignKeys": 41,
+    "views": 2,
+    "sequences": 26,
+    "archiveSha256": "7473ce41c284a1e1a69edd31edddda509b4c4c1273752e67016a573ac112a40c",
+    "kept": false
+  },
+  "tests": {
+    "python": {
+      "passed": 17,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "guardTests": 11,
+      "realPostgresTests": 6
+    },
+    "backend": {
+      "passed": 161,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "mavenPackage": "success",
+      "securityAndNotificationIntegrationEnabled": true
+    },
+    "frontend": {
+      "typecheck": "success",
+      "productionBuild": "success",
+      "existingWarnings": [
+        "simplebar non-module",
+        "static/dynamic imports",
+        "chunk larger than 500kB"
+      ]
+    }
+  },
+  "verified": [
+    "source tables/schema fingerprint unchanged before/after full drill",
+    "all public table row counts/content hashes",
+    "columns/checks/validated foreign keys/indexes/views/sequence definitions",
+    "Chinese/emoji guest/message and booking/payment/refund/notification relationships",
+    "sequence state and next booking ID on quiescent scratch target",
+    "exported snapshot excludes later committed source-clone insert",
+    "corrupt checksum rejected before creating target",
+    "truncated dump with recomputed checksum fails restore and cleans target",
+    "wrong expected data fingerprint rejected and cleans target",
+    "existing backup not overwritten; incomplete DB rejected without source modification",
+    "network none, no published ports or host mounts; private backup file permissions",
+    "successful default restore automatically removes own container"
+  ],
+  "initialIssuesResolved": [
+    "public schema already present in fresh database; clean/if-exists only on newly created target",
+    "PostgreSQL 17 pure varchar literal array cast deparser rewrite; narrow normalization regression"
+  ],
+  "excluded": [
+    "local/user data and PostgreSQL18",
+    "MinIO and secrets/config",
+    "other schemas and cluster roles/ACL",
+    "WAL/PITR and production cutover",
+    "encryption/off-machine retention/scheduling",
+    "custom functions/triggers/extensions/materialized views/RLS full structural coverage",
+    "paid services, real payments/email/LINE, browser/device tests"
+  ],
+  "logSha256": {
+    "python-tests.log": "26efc5ec88aa7df386f5da13666200b45ac83f03061377c0ab93476cefbe985d",
+    "maven.log": "8e5ff3c2b64bf80da24328bc537397f67f6182b5c53f19958a7538a6bc4039e9",
+    "frontend-build.log": "0103ced04e474047c5c6f6cfd361242087e969942c030d503a35abb2fc27313d"
+  }
+}
